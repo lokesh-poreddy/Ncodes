@@ -1,30 +1,32 @@
+import java.util.Stack;
+
 public class nonpattern {
-    public int trap(int[] height) {
-        int n = height.length;
-        int totalWater = 0;
-        int lMax = 0;
-        int rMax = 0;
-        int start = 0;
-        int end = n - 1;
-
-        while (start < end) {
-            lMax = Math.max(lMax, height[start]);
-            rMax = Math.max(rMax, height[end]);
-
-            if (lMax < rMax){
-                totalWater += lMax - height[start];
-                start++;
+    public int evalRPN (String[] tokens) {
+        Stack<Integer> stack = new Stack<>();
+        
+        for (String token : tokens) {
+            if (token.equals("+") || token.equals("-") || token.equals("*") || token.equals("/")) {
+                int num2 = stack.pop();
+                int num1 = stack.pop(); 
+                if (token.equals("+")) {
+                    stack.push(num1 + num2);
+                } else if (token.equals("-")) {
+                    stack.push(num1 - num2);
+                } else if (token.equals("*")) {
+                    stack.push(num1 * num2);
+                } else if (token.equals("/")) {
+                    stack.push(num1 / num2);
+                }
             } else {
-                totalWater += rMax - height[end];
-                end--;
+                stack.push(Integer.parseInt(token));
             }
         }
-        return totalWater;
+        return stack.pop();
     }
 
 
     public static void main(String[] args) {
-        nonpattern solver = new nonpattern();
-        solver.trap(new int[]{0,1,0,2,1,0,1,3,2,1,2,1}); 
+        nonpattern ans = new nonpattern();
+        System.out.println(ans.evalRPN(new String[]{"2", "1", "+", "3", "*"}));
     }
 }
