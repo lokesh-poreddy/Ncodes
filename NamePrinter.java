@@ -1,18 +1,14 @@
-public class NamePrinter {
-    public  void printNames(String name, int count, int  N) {
-        if (count == N) {
+class Solution {
+    public void printNumbers(int n) {
+        if ( n == 0){
             return;
         }
-        System.out.println(name);
-        printNames(name, count + 1, N);
+        printNumbers(n - 1);
+        System.out.println(n);
     }
 
-    public class Main {
-        public static void main(String[] args) {
-            NamePrinter nameprinter = new NamePrinter();
-            int N = 9;
-            String name = "loki";
-            nameprinter.printNames("loki", 1,5);
-        }
+    public static void main(String[] args) {
+        Solution solution = new Solution();
+        solution.printNumbers(5);
     }
-}  
+}
